@@ -14,6 +14,10 @@ module.exports = {
 					light: '#9cd6db',
 					dark: '#9c9c9c',
 				},
+				textColor: {
+					dark: '#918d8d',
+					light: '#4a4a4a',
+				},
 				success: '#22C55E',
 				error: '#EF4444',
 				warning: '#FACC15',
