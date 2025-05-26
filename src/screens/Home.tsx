@@ -3,7 +3,6 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { LineChart } from 'react-native-gifted-charts';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 
 const data = [
 	{ value: 222, label: 'Jan' },
@@ -111,8 +110,6 @@ function Home() {
 						</Text>
 					</View>
 				</View>
-
-				<Footer />
 			</SafeAreaView>
 		</SafeAreaProvider>
 	);

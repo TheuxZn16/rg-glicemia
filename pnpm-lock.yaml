@@ -12,11 +12,14 @@ importers:
         specifier: ^14.1.0
         version: 14.1.0(expo-font@13.3.1(expo@53.0.9(@babel/core@7.27.1)(@expo/metro-runtime@5.0.4(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0)))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       '@react-navigation/material-top-tabs':
-        specifier: ^5.x
-        version: 5.3.19(@react-navigation/native@7.1.9(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-gesture-handler@2.25.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-reanimated@3.16.2(@babel/core@7.27.1)(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-tab-view@2.16.0(react-native-gesture-handler@2.25.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-reanimated@3.16.2(@babel/core@7.27.1)(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+        specifier: ^7.2.13
+        version: 7.2.13(@react-navigation/native@7.1.9(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-pager-view@6.8.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-safe-area-context@5.4.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       '@react-navigation/native':
         specifier: ^7.1.6
         version: 7.1.9(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      '@react-navigation/native-stack':
+        specifier: ^7.3.13
+        version: 7.3.13(@react-navigation/native@7.1.9(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-safe-area-context@5.4.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-screens@4.10.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       '@tanstack/react-query':
         specifier: '4'
         version: 4.36.1(react-dom@19.0.0(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
@@ -56,12 +59,18 @@ importers:
       react-native:
         specifier: 0.79.2
         version: 0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0)
+      react-native-gesture-handler:
+        specifier: ^2.25.0
+        version: 2.25.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       react-native-gifted-charts:
         specifier: ^1.4.61
         version: 1.4.61(react-native-linear-gradient@2.8.3(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-svg@15.12.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       react-native-linear-gradient:
         specifier: ^2.8.3
         version: 2.8.3(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      react-native-pager-view:
+        specifier: ^6.8.0
+        version: 6.8.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       react-native-reanimated:
         specifier: ~3.16.2
         version: 3.16.2(@babel/core@7.27.1)(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
@@ -74,9 +83,6 @@ importers:
       react-native-svg:
         specifier: ^15.12.0
         version: 15.12.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
-      react-native-tab-view:
-        specifier: ^2.x
-        version: 2.16.0(react-native-gesture-handler@2.25.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-reanimated@3.16.2(@babel/core@7.27.1)(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       react-native-vector-icons:
         specifier: ^10.2.0
         version: 10.2.0
@@ -996,15 +1002,14 @@ packages:
       '@react-native-masked-view/masked-view':
         optional: true
 
-  '@react-navigation/material-top-tabs@5.3.19':
-    resolution: {integrity: sha512-I7bEF99THxxcY7kCUZ5pPmwXr6kgo6L2sg3P1YJo+CcBWSGvGiHyNbZXNs15HuKRuFvEuueChNV9n8QuKBWbDA==}
+  '@react-navigation/material-top-tabs@7.2.13':
+    resolution: {integrity: sha512-0hEoWE0cILm2ydc3+dcVtsfuljcR1tV74ke9Iwc4+vsJhVnSYRnltcx3Ywm8mPcogwB94lw5t2+W2U1rikK6qQ==}
     peerDependencies:
-      '@react-navigation/native': ^5.0.5
-      react: '*'
+      '@react-navigation/native': ^7.1.9
+      react: '>= 18.2.0'
       react-native: '*'
-      react-native-gesture-handler: '>= 1.0.0'
-      react-native-reanimated: '>= 1.0.0'
-      react-native-tab-view: '>= 2.0.0'
+      react-native-pager-view: '>= 6.0.0'
+      react-native-safe-area-context: '>= 4.0.0'
 
   '@react-navigation/native-stack@7.3.13':
     resolution: {integrity: sha512-udH+HumX0PmaT6QQTqjU3ciiCwifBGtnw1+6B1bVEDw83q80WHotlMitaf8Enbuf7oWrxwB+Eow4tV5MJXgQtQ==}
@@ -1546,9 +1551,6 @@ packages:
 
   color-string@1.9.1:
     resolution: {integrity: sha512-shrVawQFojnZv6xM40anx4CkoDP+fZsw/ZerEMsW/pyzsRbElpsL/DBVW7q3ExxwusdNXI3lXpuhEZkzs8p5Eg==}
-
-  color@3.2.1:
-    resolution: {integrity: sha512-aBl7dZI9ENN6fUGC7mWpMTPNHmWUSNan9tuWN6ahh5ZLNk9baLJOnSMlrQkHcrfFgz2/RigjUVAjdx36VcemKA==}
 
   color@4.2.3:
     resolution: {integrity: sha512-1rXeuUUiGGrykh+CeBdu5Ie7OJwinCgQY0bc7GCRxy5xVHy+moaqkpL/jqQq0MtQOeYcrqEz4abc5f0KtU7W4A==}
@@ -3250,6 +3252,12 @@ packages:
       react: '*'
       react-native: '*'
 
+  react-native-pager-view@6.8.0:
+    resolution: {integrity: sha512-/wgFV8nB4TLnQ6j9e3TvNrHbPF5TINMZHaXt86GOV0NSJNMVGkWguniJVKrYLm85LL8KVhRkgdh43Rdu7PvW1A==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+
   react-native-reanimated@3.16.2:
     resolution: {integrity: sha512-Jk8y+iOLcK3J8YK3Qj/U+zclwfetgM1fFhlYaxFrJ5TPvuwdRG5YY1pvO91FcZ3C1+0meGHR6BZGl9d/Z0xh3Q==}
     peerDependencies:
@@ -3275,13 +3283,12 @@ packages:
       react: '*'
       react-native: '*'
 
-  react-native-tab-view@2.16.0:
-    resolution: {integrity: sha512-ac2DmT7+l13wzIFqtbfXn4wwfgtPoKzWjjZyrK1t+T8sdemuUvD4zIt+UImg03fu3s3VD8Wh/fBrIdcqQyZJWg==}
+  react-native-tab-view@4.1.0:
+    resolution: {integrity: sha512-A6pse3u7343aTw8OKxCyC90XG7ytnLBBn2QOxVByQ3TqPTi+X/bUW+B28GBpgNPODl4jscAsXW4qmAJqXDjJ+g==}
     peerDependencies:
-      react: '*'
+      react: '>= 18.2.0'
       react-native: '*'
-      react-native-gesture-handler: '*'
-      react-native-reanimated: '*'
+      react-native-pager-view: '>= 6.0.0'
 
   react-native-vector-icons@10.2.0:
     resolution: {integrity: sha512-n5HGcxUuVaTf9QJPs/W22xQpC2Z9u0nb0KgLPnVltP8vdUvOp6+R26gF55kilP/fV4eL4vsAHUqUjewppJMBOQ==}
@@ -5327,15 +5334,18 @@ snapshots:
       react-native: 0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0)
       react-native-safe-area-context: 5.4.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
 
-  '@react-navigation/material-top-tabs@5.3.19(@react-navigation/native@7.1.9(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-gesture-handler@2.25.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-reanimated@3.16.2(@babel/core@7.27.1)(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-tab-view@2.16.0(react-native-gesture-handler@2.25.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-reanimated@3.16.2(@babel/core@7.27.1)(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)':
+  '@react-navigation/material-top-tabs@7.2.13(@react-navigation/native@7.1.9(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-pager-view@6.8.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-safe-area-context@5.4.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)':
     dependencies:
+      '@react-navigation/elements': 2.4.2(@react-navigation/native@7.1.9(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-safe-area-context@5.4.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       '@react-navigation/native': 7.1.9(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
-      color: 3.2.1
+      color: 4.2.3
       react: 19.0.0
       react-native: 0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0)
-      react-native-gesture-handler: 2.25.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
-      react-native-reanimated: 3.16.2(@babel/core@7.27.1)(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
-      react-native-tab-view: 2.16.0(react-native-gesture-handler@2.25.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-reanimated@3.16.2(@babel/core@7.27.1)(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      react-native-pager-view: 6.8.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      react-native-safe-area-context: 5.4.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      react-native-tab-view: 4.1.0(react-native-pager-view@6.8.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+    transitivePeerDependencies:
+      - '@react-native-masked-view/masked-view'
 
   '@react-navigation/native-stack@7.3.13(@react-navigation/native@7.1.9(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-safe-area-context@5.4.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-screens@4.10.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)':
     dependencies:
@@ -5969,11 +5979,6 @@ snapshots:
     dependencies:
       color-name: 1.1.4
       simple-swizzle: 0.2.2
-
-  color@3.2.1:
-    dependencies:
-      color-convert: 1.9.3
-      color-string: 1.9.1
 
   color@4.2.3:
     dependencies:
@@ -7956,6 +7961,11 @@ snapshots:
       react: 19.0.0
       react-native: 0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0)
 
+  react-native-pager-view@6.8.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+      react-native: 0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0)
+
   react-native-reanimated@3.16.2(@babel/core@7.27.1)(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0):
     dependencies:
       '@babel/core': 7.27.1
@@ -7995,12 +8005,12 @@ snapshots:
       react-native: 0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0)
       warn-once: 0.1.1
 
-  react-native-tab-view@2.16.0(react-native-gesture-handler@2.25.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-reanimated@3.16.2(@babel/core@7.27.1)(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0):
+  react-native-tab-view@4.1.0(react-native-pager-view@6.8.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0):
     dependencies:
       react: 19.0.0
       react-native: 0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0)
-      react-native-gesture-handler: 2.25.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
-      react-native-reanimated: 3.16.2(@babel/core@7.27.1)(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      react-native-pager-view: 6.8.0(react-native@0.79.2(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      use-latest-callback: 0.2.3(react@19.0.0)
 
   react-native-vector-icons@10.2.0:
     dependencies:

@@ -1,33 +1,41 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, useColorScheme, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import type { MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
 
-function Footer() {
+function Footer({ navigation, state }: MaterialTopTabBarProps) {
 	const queryClient = useQueryClient();
+	const isDarkScheme = useColorScheme() === 'dark';
 
-	const { data: isDark } = useQuery({
+	const { data: isDark = isDarkScheme } = useQuery({
 		queryKey: ['isDark'],
-		queryFn: () => queryClient.getQueryData(['isDark']),
+		initialData: isDarkScheme,
+		queryFn: () => queryClient.getQueryData(['isDark']) || isDarkScheme,
 	});
+
 	return (
 		<View
-			className={`h-14 w-72 mx-auto rounded-full fixed bottom-7 p-4 flex-row justify-around items-center ${isDark ? 'bg-secundaryBackground-dark' : 'bg-secundaryBackground-light'}`}
+			className={`h-16 w-72 absolute bottom-14 left-1/2 -translate-x-1/2 rounded-full flex-row justify-around items-center ${isDark ? 'bg-secundaryBackground-dark' : 'bg-secundaryBackground-light'}`}
 		>
 			<TouchableOpacity
-				className={`rounded-full w-10 h-10 justify-center items-center ${isDark ? 'bg-tertiaryBackground-dark' : 'bg-tertiaryBackground-light'}`}
+				onPress={() => navigation.navigate('Home')}
+				className={`rounded-full w-12 h-12 justify-center items-center ${state.index === 0 ? (isDark ? 'bg-tertiaryBackground-dark' : 'bg-tertiaryBackground-light') : ''}`}
 			>
-				<Icon name="home" size={18} color={isDark ? '#fff' : '#000000'} />
+				<Icon name="home" size={20} color={isDark ? '#fff' : '#000000'} />
 			</TouchableOpacity>
-			<TouchableOpacity className="rounded-full w-10 h-10 justify-center items-center">
-				<Icon name="plus" size={18} color={isDark ? '#fff' : '#000000'} />
+			<TouchableOpacity
+				onPress={() => navigation.navigate('Adicionar')}
+				className={`rounded-full w-12 h-12 justify-center items-center ${state.index === 1 ? (isDark ? 'bg-tertiaryBackground-dark' : 'bg-tertiaryBackground-light') : ''}`}
+			>
+				<Icon name="plus" size={20} color={isDark ? '#fff' : '#000000'} />
 			</TouchableOpacity>
-			<TouchableOpacity className="rounded-full w-10 h-10 justify-center items-center">
-				<Icon name="edit" size={18} color={isDark ? '#fff' : '#000000'} />
+			<TouchableOpacity className="rounded-full w-12 h-12 justify-center items-center">
+				<Icon name="edit" size={20} color={isDark ? '#fff' : '#000000'} />
 			</TouchableOpacity>
-			<TouchableOpacity className="rounded-full w-10 h-10 justify-center items-center">
+			<TouchableOpacity className="rounded-full w-12 h-12 justify-center items-center">
 				<Icon
 					name="file-export"
-					size={18}
+					size={20}
 					color={isDark ? '#fff' : '#000000'}
 				/>
 			</TouchableOpacity>
