@@ -1,17 +1,11 @@
-import { Text, useColorScheme, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../components/Header';
-import { useQueryClient, useQuery } from '@tanstack/react-query';
+import { useTheme } from '../hooks/useTheme';
 
 function AddValueAtSheet() {
-	const isDarkScheme = useColorScheme() === 'dark';
-	const QueryClient = useQueryClient();
+	const { isDark } = useTheme();
 
-	const { data: isDark = isDarkScheme } = useQuery({
-		queryKey: ['isDark'],
-		initialData: isDarkScheme,
-		queryFn: () => QueryClient.getQueryData(['isDark']) || isDarkScheme,
-	});
 	return (
 		<SafeAreaProvider>
 			<SafeAreaView className={`flex-1 ${isDark ? 'bg-black' : 'bg-white'}`}>

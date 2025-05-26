@@ -1,8 +1,8 @@
-import { View, Text, Dimensions, useColorScheme } from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { LineChart } from 'react-native-gifted-charts';
 import Header from '../components/Header';
+import { useTheme } from '../hooks/useTheme';
 
 const data = [
 	{ value: 222, label: 'Jan' },
@@ -20,15 +20,8 @@ interface DataPoint {
 }
 
 function Home() {
-	const queryClient = useQueryClient();
 	const { width } = Dimensions.get('window');
-	const isDarkScheme = useColorScheme() === 'dark';
-
-	const { data: isDark = isDarkScheme } = useQuery({
-		queryKey: ['isDark'],
-		initialData: isDarkScheme,
-		queryFn: () => queryClient.getQueryData(['isDark']) || isDarkScheme,
-	});
+	const { isDark } = useTheme();
 
 	return (
 		<SafeAreaProvider>

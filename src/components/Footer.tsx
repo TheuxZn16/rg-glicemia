@@ -1,17 +1,10 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { TouchableOpacity, useColorScheme, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import type { MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
+import { useTheme } from '../hooks/useTheme';
 
 function Footer({ navigation, state }: MaterialTopTabBarProps) {
-	const queryClient = useQueryClient();
-	const isDarkScheme = useColorScheme() === 'dark';
-
-	const { data: isDark = isDarkScheme } = useQuery({
-		queryKey: ['isDark'],
-		initialData: isDarkScheme,
-		queryFn: () => queryClient.getQueryData(['isDark']) || isDarkScheme,
-	});
+	const { isDark } = useTheme();
 
 	return (
 		<View

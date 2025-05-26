@@ -1,21 +1,9 @@
-import { Text, View, TouchableOpacity, useColorScheme } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useTheme } from '../hooks/useTheme';
 
 function Header() {
-	const queryClient = useQueryClient();
-	const isDarkScheme = useColorScheme() === 'dark';
-
-	const { data: isDark = isDarkScheme } = useQuery({
-		queryKey: ['isDark'],
-		initialData: isDarkScheme,
-		queryFn: () => queryClient.getQueryData(['isDark']) || isDarkScheme,
-	});
-
-	function handleTheme() {
-		const newTheme = !isDark;
-		queryClient.setQueryData(['isDark'], newTheme);
-	}
+	const { isDark, toggleTheme } = useTheme();
 
 	return (
 		<View className="p-5 flex justify-between items-center flex-row h-20">
@@ -24,7 +12,7 @@ function Header() {
 			>
 				Controle de Glicemia
 			</Text>
-			<TouchableOpacity onPress={handleTheme} className="rounded-full">
+			<TouchableOpacity onPress={toggleTheme} className="rounded-full">
 				<Icon
 					name={isDark ? 'sun' : 'moon'}
 					size={22}
