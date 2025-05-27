@@ -22,10 +22,15 @@ function Footer({ navigation, state }: MaterialTopTabBarProps) {
 			>
 				<Icon name="plus" size={20} color={isDark ? '#fff' : '#000000'} />
 			</TouchableOpacity>
-			<TouchableOpacity className="rounded-full w-12 h-12 justify-center items-center">
+			<TouchableOpacity
+				onPress={() => navigation.navigate('Editar')}
+				className={`rounded-full w-12 h-12 justify-center items-center ${state.index === 2 ? (isDark ? 'bg-tertiaryBackground-dark' : 'bg-tertiaryBackground-light') : ''}`}
+			>
 				<Icon name="edit" size={20} color={isDark ? '#fff' : '#000000'} />
 			</TouchableOpacity>
-			<TouchableOpacity className="rounded-full w-12 h-12 justify-center items-center">
+			<TouchableOpacity
+				className={`rounded-full w-12 h-12 justify-center items-center ${state.index === 3 ? (isDark ? 'bg-tertiaryBackground-dark' : 'bg-tertiaryBackground-light') : ''}`}
+			>
 				<Icon
 					name="file-export"
 					size={20}

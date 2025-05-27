@@ -15,7 +15,7 @@ import {
 	FormControlLabelText,
 } from '@/components/ui/form-control';
 import { Input, InputField } from '@/components/ui/input';
-import { ChevronDownIcon } from '@/components/ui/icon';
+import { ChevronDownIcon, Icon } from '@/components/ui/icon';
 import { useState } from 'react';
 
 const meals = [
@@ -92,7 +92,7 @@ function AddValueAtSheet() {
 								<FormControlLabelText
 									className={`text-xl font-semibold ${isDark ? 'text-textColor-dark' : 'text-textColor-light'}`}
 								>
-									Qual a refeição?
+									Qual a refeição:
 								</FormControlLabelText>
 							</FormControlLabel>
 							<Pressable
@@ -107,7 +107,7 @@ function AddValueAtSheet() {
 										: 'Selecione uma refeição'}
 								</Text>
 								<View className="w-7 h-7 justify-center items-center">
-									<ChevronDownIcon color={isDark ? '#fff' : '#000'} />
+									<Icon as={ChevronDownIcon} />
 								</View>
 							</Pressable>
 

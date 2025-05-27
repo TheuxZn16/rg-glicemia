@@ -10,6 +10,7 @@ import {
 import AddValueAtSheet from '../screens/AddValueAtSheet';
 import Footer from '../components/Footer';
 import { View } from 'react-native';
+import EditValueFromSheet from '../screens/EditValueFromSheet';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -21,14 +22,12 @@ function Routes() {
 			<View className="flex-1">
 				<Tab.Navigator
 					initialRouteName="Home"
-					screenOptions={{
-						headerShown: false,
-					}}
 					tabBar={(props: MaterialTopTabBarProps) => <Footer {...props} />}
 					tabBarPosition="bottom"
 				>
 					<Tab.Screen name="Home" component={Home} />
 					<Tab.Screen name="Adicionar" component={AddValueAtSheet} />
+					<Tab.Screen name="Editar" component={EditValueFromSheet} />
 				</Tab.Navigator>
 			</View>
 		</QueryClientProvider>
