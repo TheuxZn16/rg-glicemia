@@ -11,6 +11,7 @@ import AddValueAtSheet from '../screens/AddValueAtSheet';
 import Footer from '../components/Footer';
 import { View } from 'react-native';
 import EditValueFromSheet from '../screens/EditValueFromSheet';
+import DownloadSheet from '../screens/DownloadSheet';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -28,6 +29,7 @@ function Routes() {
 					<Tab.Screen name="Home" component={Home} />
 					<Tab.Screen name="Adicionar" component={AddValueAtSheet} />
 					<Tab.Screen name="Editar" component={EditValueFromSheet} />
+					<Tab.Screen name="Baixar" component={DownloadSheet} />
 				</Tab.Navigator>
 			</View>
 		</QueryClientProvider>
