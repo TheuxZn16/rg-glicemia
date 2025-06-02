@@ -12,12 +12,34 @@ import Footer from '../components/Footer';
 import { View } from 'react-native';
 import EditValueFromSheet from '../screens/EditValueFromSheet';
 import DownloadSheet from '../screens/DownloadSheet';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+
+function GoogleSigninConfig() {
+	try {
+		GoogleSignin.configure({
+			iosClientId:
+				'1039543113049-s6tib409170emam9oo6akg9q7akfgl59.apps.googleusercontent.com',
+			webClientId:
+				'1039543113049-ei0ue2mo2dr5c9s6h67re7rgo0ih33or.apps.googleusercontent.com',
+			offlineAccess: true,
+			scopes: [
+				'https://www.googleapis.com/auth/spreadsheets',
+				'https://www.googleapis.com/auth/drive.file',
+				'profile',
+				'email',
+			],
+		});
+	} catch (error) {
+		console.log(error);
+	}
+}
 
 const Tab = createMaterialTopTabNavigator();
 
 const queryClient = new QueryClient();
 
 function Routes() {
+	GoogleSigninConfig();
 	return (
 		<QueryClientProvider client={queryClient}>
 			<View className="flex-1">
