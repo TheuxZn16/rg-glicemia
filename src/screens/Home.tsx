@@ -3,6 +3,8 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { LineChart } from 'react-native-gifted-charts';
 import Header from '../components/Header';
 import { useTheme } from '../hooks/useTheme';
+import { useQuery } from '@tanstack/react-query';
+import { getStoredUser } from '../hooks/setAuth';
 
 const data = [
 	{ value: 222, label: 'Jan' },
@@ -22,6 +24,27 @@ interface DataPoint {
 function Home() {
 	const { width } = Dimensions.get('window');
 	const { isDark } = useTheme();
+	const { data: user } = useQuery({
+		queryKey: ['user'],
+		queryFn: getStoredUser,
+	});
+
+	if (!user) {
+		return (
+			<SafeAreaProvider>
+				<SafeAreaView className={`flex-1 ${isDark ? 'bg-black' : 'bg-white'}`}>
+					<Header />
+					<View className="flex-1 p-3 items-center justify-center">
+						<Text
+							className={`text-2xl font-bold text-center ${isDark ? 'text-textColor-dark' : 'text-textColor-light'}`}
+						>
+							É necessário fazer login para acessar esta funcionalidade
+						</Text>
+					</View>
+				</SafeAreaView>
+			</SafeAreaProvider>
+		);
+	}
 
 	return (
 		<SafeAreaProvider>

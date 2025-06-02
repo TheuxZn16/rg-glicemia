@@ -9,6 +9,8 @@ import {
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../components/Header';
 import { useTheme } from '../hooks/useTheme';
+import { useQuery } from '@tanstack/react-query';
+import { getStoredUser } from '../hooks/setAuth';
 import {
 	FormControl,
 	FormControlLabel,
@@ -33,10 +35,31 @@ function capitalizeFirstLetter(string: string) {
 
 function AddValueAtSheet() {
 	const { isDark } = useTheme();
+	const { data: user } = useQuery({
+		queryKey: ['user'],
+		queryFn: getStoredUser,
+	});
 	const [selectedMeal, setSelectedMeal] = useState('');
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [glucoseValue, setGlucoseValue] = useState('');
 	const [correctionValue, setCorrectionValue] = useState('');
+
+	if (!user) {
+		return (
+			<SafeAreaProvider>
+				<SafeAreaView className={`flex-1 ${isDark ? 'bg-black' : 'bg-white'}`}>
+					<Header />
+					<View className="flex-1 p-3 items-center justify-center">
+						<Text
+							className={`text-2xl font-bold text-center ${isDark ? 'text-textColor-dark' : 'text-textColor-light'}`}
+						>
+							É necessário fazer login para acessar esta funcionalidade
+						</Text>
+					</View>
+				</SafeAreaView>
+			</SafeAreaProvider>
+		);
+	}
 
 	const handleSelect = (value: string) => {
 		setSelectedMeal(value);
