@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import { useTheme } from '../hooks/useTheme';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getStoredUser } from '../hooks/setAuth';
-import { useGetSelectedSheet } from '../hooks/setSheet';
+import { useGetSelectedSheet, useCreateSheet } from '../hooks/setSheet';
 import SheetSelectionButtons from '../components/SheetSelectionButtons';
 
 const data = [
@@ -32,6 +32,7 @@ function Home() {
 		queryFn: getStoredUser,
 	});
 	const { data: selectedSheet } = useGetSelectedSheet();
+	const { mutate: createSheet } = useCreateSheet();
 
 	if (!user) {
 		return (
@@ -66,6 +67,7 @@ function Home() {
 							onSheetSelected={() => {
 								queryClient.invalidateQueries({ queryKey: ['selectedSheet'] });
 							}}
+							onCreateSheetPress={createSheet}
 						/>
 					</View>
 				</SafeAreaView>

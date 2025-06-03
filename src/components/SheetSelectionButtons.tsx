@@ -4,13 +4,16 @@ import SheetSelectionModal from './SheetSelectionModal';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getAllSheets, useSetSheet } from '../hooks/setSheet';
+import type { UseMutateFunction } from '@tanstack/react-query';
 
 interface SheetSelectionButtonsProps {
 	onSheetSelected?: () => void;
+	onCreateSheetPress: UseMutateFunction<any, unknown, void, unknown>;
 }
 
 function SheetSelectionButtons({
 	onSheetSelected,
+	onCreateSheetPress,
 }: SheetSelectionButtonsProps) {
 	const { isDark } = useTheme();
 	const [isModalVisible, setIsModalVisible] = useState(false);
@@ -32,6 +35,7 @@ function SheetSelectionButtons({
 		<>
 			<TouchableOpacity
 				className={`p-4 rounded-xl mb-4 w-full ${isDark ? 'bg-blue-600' : 'bg-blue-500'}`}
+				onPress={() => onCreateSheetPress()}
 			>
 				<Text className="text-white text-center text-lg font-bold">
 					Criar Nova Planilha
