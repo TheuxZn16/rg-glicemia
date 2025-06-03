@@ -5,6 +5,7 @@ import { Text, View, TouchableOpacity, Alert } from 'react-native';
 import { ArrowDownIcon, Icon } from '@/components/ui/icon';
 import { useQuery } from '@tanstack/react-query';
 import { getStoredUser } from '../hooks/setAuth';
+import { useGetSelectedSheet } from '../hooks/setSheet';
 
 function DownloadSheet() {
 	const { isDark } = useTheme();
@@ -12,6 +13,7 @@ function DownloadSheet() {
 		queryKey: ['user'],
 		queryFn: getStoredUser,
 	});
+	const { data: selectedSheet } = useGetSelectedSheet();
 
 	if (!user) {
 		return (
@@ -23,6 +25,24 @@ function DownloadSheet() {
 							className={`text-2xl font-bold text-center ${isDark ? 'text-textColor-dark' : 'text-textColor-light'}`}
 						>
 							É necessário fazer login para acessar esta funcionalidade
+						</Text>
+					</View>
+				</SafeAreaView>
+			</SafeAreaProvider>
+		);
+	}
+
+	if (!selectedSheet) {
+		return (
+			<SafeAreaProvider>
+				<SafeAreaView className={`flex-1 ${isDark ? 'bg-black' : 'bg-white'}`}>
+					<Header />
+					<View className="flex-1 p-3 items-center justify-center">
+						<Text
+							className={`text-2xl font-bold text-center ${isDark ? 'text-textColor-dark' : 'text-textColor-light'}`}
+						>
+							É necessário selecionar uma planilha para acessar esta
+							funcionalidade
 						</Text>
 					</View>
 				</SafeAreaView>

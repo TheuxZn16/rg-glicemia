@@ -1,10 +1,12 @@
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { LineChart } from 'react-native-gifted-charts';
 import Header from '../components/Header';
 import { useTheme } from '../hooks/useTheme';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getStoredUser } from '../hooks/setAuth';
+import { useGetSelectedSheet } from '../hooks/setSheet';
+import SheetSelectionButtons from '../components/SheetSelectionButtons';
 
 const data = [
 	{ value: 222, label: 'Jan' },
@@ -24,10 +26,12 @@ interface DataPoint {
 function Home() {
 	const { width } = Dimensions.get('window');
 	const { isDark } = useTheme();
+	const queryClient = useQueryClient();
 	const { data: user } = useQuery({
 		queryKey: ['user'],
 		queryFn: getStoredUser,
 	});
+	const { data: selectedSheet } = useGetSelectedSheet();
 
 	if (!user) {
 		return (
@@ -46,6 +50,29 @@ function Home() {
 		);
 	}
 
+	if (!selectedSheet) {
+		return (
+			<SafeAreaProvider>
+				<SafeAreaView className={`flex-1 ${isDark ? 'bg-black' : 'bg-white'}`}>
+					<Header />
+					<View className="flex-1 p-3 items-center justify-center">
+						<Text
+							className={`text-2xl font-bold text-center mb-8 ${isDark ? 'text-textColor-dark' : 'text-textColor-light'}`}
+						>
+							Selecione ou crie uma planilha para começar
+						</Text>
+
+						<SheetSelectionButtons
+							onSheetSelected={() => {
+								queryClient.invalidateQueries({ queryKey: ['selectedSheet'] });
+							}}
+						/>
+					</View>
+				</SafeAreaView>
+			</SafeAreaProvider>
+		);
+	}
+
 	return (
 		<SafeAreaProvider>
 			<SafeAreaView className={`flex-1 ${isDark ? 'bg-black' : 'bg-white'}`}>
@@ -53,7 +80,7 @@ function Home() {
 
 				<View className="flex-1 p-3">
 					<View
-						className={`p-1 mt-4 h-96 rounded-xl  shadow-lg items-center justify-center flex ${isDark ? 'bg-secundaryBackground-dark shadow-white' : 'bg-secundaryBackground-light shadow-black'}`}
+						className={`p-1 mt-4 h-96 rounded-xl shadow-lg items-center justify-center flex ${isDark ? 'bg-secundaryBackground-dark shadow-white' : 'bg-secundaryBackground-light shadow-black'}`}
 					>
 						<LineChart
 							width={width - 100}

@@ -11,6 +11,7 @@ import Header from '../components/Header';
 import { useTheme } from '../hooks/useTheme';
 import { useQuery } from '@tanstack/react-query';
 import { getStoredUser } from '../hooks/setAuth';
+import { useGetSelectedSheet } from '../hooks/setSheet';
 import {
 	FormControl,
 	FormControlLabel,
@@ -39,6 +40,7 @@ function AddValueAtSheet() {
 		queryKey: ['user'],
 		queryFn: getStoredUser,
 	});
+	const { data: selectedSheet } = useGetSelectedSheet();
 	const [selectedMeal, setSelectedMeal] = useState('');
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [glucoseValue, setGlucoseValue] = useState('');
@@ -54,6 +56,24 @@ function AddValueAtSheet() {
 							className={`text-2xl font-bold text-center ${isDark ? 'text-textColor-dark' : 'text-textColor-light'}`}
 						>
 							É necessário fazer login para acessar esta funcionalidade
+						</Text>
+					</View>
+				</SafeAreaView>
+			</SafeAreaProvider>
+		);
+	}
+
+	if (!selectedSheet) {
+		return (
+			<SafeAreaProvider>
+				<SafeAreaView className={`flex-1 ${isDark ? 'bg-black' : 'bg-white'}`}>
+					<Header />
+					<View className="flex-1 p-3 items-center justify-center">
+						<Text
+							className={`text-2xl font-bold text-center ${isDark ? 'text-textColor-dark' : 'text-textColor-light'}`}
+						>
+							É necessário selecionar uma planilha para acessar esta
+							funcionalidade
 						</Text>
 					</View>
 				</SafeAreaView>
