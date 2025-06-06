@@ -1,14 +1,24 @@
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../hooks/useTheme';
 import Header from '../components/Header';
-import { Text, View, TouchableOpacity, Alert } from 'react-native';
+import {
+	Text,
+	View,
+	TouchableOpacity,
+	Alert,
+	ActivityIndicator,
+} from 'react-native';
 import { ArrowDownIcon, Icon } from '@/components/ui/icon';
 import { useQuery } from '@tanstack/react-query';
 import { getStoredUser } from '../hooks/setAuth';
 import { useGetSelectedSheet } from '../hooks/setSheet';
+import { useState } from 'react';
+import { downloadCompleteSheet } from '../utils/DownloadSheet';
+import React from 'react';
 
 function DownloadSheet() {
 	const { isDark } = useTheme();
+	const [isLoading, setIsLoading] = useState(false);
 	const { data: user } = useQuery({
 		queryKey: ['user'],
 		queryFn: getStoredUser,
@@ -50,21 +60,42 @@ function DownloadSheet() {
 		);
 	}
 
-	const handleDownload = () => {
-		Alert.alert(
-			'Download',
-			'Planilha baixada com sucesso!',
-			[
+	const handleDownload = async () => {
+		try {
+			setIsLoading(true);
+			const filePath = await downloadCompleteSheet();
+			Alert.alert(
+				'Download',
+				`Planilha baixada com sucesso!\nO arquivo PDF foi gerado e está pronto para compartilhamento.`,
+				[
+					{
+						text: 'OK',
+						style: 'default',
+					},
+				],
 				{
-					text: 'OK',
-					style: 'default',
+					cancelable: true,
+					userInterfaceStyle: isDark ? 'dark' : 'light',
 				},
-			],
-			{
-				cancelable: true,
-				userInterfaceStyle: isDark ? 'dark' : 'light',
-			},
-		);
+			);
+		} catch (error) {
+			Alert.alert(
+				'Erro',
+				error instanceof Error ? error.message : 'Erro ao baixar planilha',
+				[
+					{
+						text: 'OK',
+						style: 'default',
+					},
+				],
+				{
+					cancelable: true,
+					userInterfaceStyle: isDark ? 'dark' : 'light',
+				},
+			);
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	return (
@@ -85,18 +116,25 @@ function DownloadSheet() {
 						<Text
 							className={`${isDark ? 'text-textColor-dark' : 'text-textColor-light'} text-lg mb-8`}
 						>
-							Faça o download da sua planilha de glicemia em formato Excel para
+							Faça o download da sua planilha de glicemia em formato PDF para
 							análise detalhada dos seus dados.
 						</Text>
 
 						<TouchableOpacity
 							onPress={handleDownload}
+							disabled={isLoading}
 							className={`h-14 rounded-lg flex-row justify-center items-center ${isDark ? 'bg-tertiaryBackground-dark' : 'bg-tertiaryBackground-light'}`}
 						>
-							<Icon as={ArrowDownIcon} className="mr-2" />
-							<Text className="text-xl font-medium text-black">
-								Baixar Planilha
-							</Text>
+							{isLoading ? (
+								<ActivityIndicator color={isDark ? 'white' : 'black'} />
+							) : (
+								<>
+									<Icon as={ArrowDownIcon} className="mr-2" />
+									<Text className="text-xl font-medium text-black">
+										Baixar Planilha
+									</Text>
+								</>
+							)}
 						</TouchableOpacity>
 					</View>
 
@@ -113,7 +151,7 @@ function DownloadSheet() {
 							<Text
 								className={`${isDark ? 'text-textColor-dark' : 'text-textColor-light'} text-lg`}
 							>
-								• Formato: Excel (.xlsx)
+								• Formato: PDF
 							</Text>
 							<Text
 								className={`${isDark ? 'text-textColor-dark' : 'text-textColor-light'} text-lg`}
