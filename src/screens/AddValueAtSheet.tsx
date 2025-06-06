@@ -5,6 +5,7 @@ import {
 	Modal,
 	TouchableOpacity,
 	Alert,
+	ActivityIndicator,
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../components/Header';
@@ -20,14 +21,22 @@ import {
 import { Input, InputField } from '@/components/ui/input';
 import { ChevronDownIcon, Icon } from '@/components/ui/icon';
 import { useState } from 'react';
+import {
+	registerBreakfast,
+	registerLunch,
+	registerAfternoonSnack,
+	registerDinner,
+	registerSupper,
+	registerOther,
+} from '../utils/AddValue';
 
 const meals = [
-	{ label: 'Café da manhã', value: 'café da manhã' },
-	{ label: 'Almoço', value: 'almoço' },
-	{ label: 'Café da tarde', value: 'café da tarde' },
-	{ label: 'Jantar', value: 'jantar' },
-	{ label: 'Pós jantar', value: 'ceia' },
-	{ label: 'Outro', value: 'outro' },
+	{ label: 'Café da manhã', value: 'Café da manhã' },
+	{ label: 'Almoço', value: 'Almoço' },
+	{ label: 'Café da tarde', value: 'Café da tarde' },
+	{ label: 'Jantar', value: 'Jantar' },
+	{ label: 'Ceia', value: 'Ceia' },
+	{ label: 'Outro', value: 'Outro' },
 ];
 
 function capitalizeFirstLetter(string: string) {
@@ -45,6 +54,7 @@ function AddValueAtSheet() {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [glucoseValue, setGlucoseValue] = useState('');
 	const [correctionValue, setCorrectionValue] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 
 	if (!user) {
 		return (
@@ -86,34 +96,90 @@ function AddValueAtSheet() {
 		setIsModalVisible(false);
 	};
 
-	const handleSubmit = () => {
-		const formData = {
-			refeicao: selectedMeal,
-			glicemia: glucoseValue,
-			correcao: correctionValue,
-		};
-
-		console.log('Dados do formulário:', formData);
-
-		Alert.alert(
-			'Sucesso!',
-			'Valores registrados com sucesso!',
-			[
-				{
-					text: 'OK',
-					style: 'default',
-					onPress: () => {
-						setSelectedMeal('');
-						setGlucoseValue('');
-						setCorrectionValue('');
+	const handleSubmit = async () => {
+		if (!selectedMeal || !glucoseValue || !correctionValue) {
+			Alert.alert(
+				'Erro',
+				'Por favor, preencha todos os campos',
+				[
+					{
+						text: 'OK',
+						style: 'default',
 					},
+				],
+				{
+					cancelable: true,
+					userInterfaceStyle: isDark ? 'dark' : 'light',
 				},
-			],
-			{
-				cancelable: true,
-				userInterfaceStyle: isDark ? 'dark' : 'light',
-			},
-		);
+			);
+			return;
+		}
+
+		setIsLoading(true);
+		try {
+			const normalizedMeal = capitalizeFirstLetter(selectedMeal);
+
+			switch (normalizedMeal) {
+				case 'Café da manhã':
+					await registerBreakfast(glucoseValue, correctionValue);
+					break;
+				case 'Almoço':
+					await registerLunch(glucoseValue, correctionValue);
+					break;
+				case 'Café da tarde':
+					await registerAfternoonSnack(glucoseValue, correctionValue);
+					break;
+				case 'Jantar':
+					await registerDinner(glucoseValue, correctionValue);
+					break;
+				case 'Ceia':
+					await registerSupper(glucoseValue, correctionValue);
+					break;
+				case 'Outro':
+					await registerOther(glucoseValue, correctionValue);
+					break;
+				default:
+					throw new Error(`Refeição inválida: ${selectedMeal}`);
+			}
+
+			Alert.alert(
+				'Sucesso!',
+				'Valores registrados com sucesso!',
+				[
+					{
+						text: 'OK',
+						style: 'default',
+						onPress: () => {
+							setSelectedMeal('');
+							setGlucoseValue('');
+							setCorrectionValue('');
+						},
+					},
+				],
+				{
+					cancelable: true,
+					userInterfaceStyle: isDark ? 'dark' : 'light',
+				},
+			);
+		} catch (error) {
+			console.error('Erro ao registrar valores:', error);
+			Alert.alert(
+				'Erro',
+				'Ocorreu um erro ao registrar os valores. Tente novamente.',
+				[
+					{
+						text: 'OK',
+						style: 'default',
+					},
+				],
+				{
+					cancelable: true,
+					userInterfaceStyle: isDark ? 'dark' : 'light',
+				},
+			);
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	return (
@@ -238,9 +304,14 @@ function AddValueAtSheet() {
 
 						<TouchableOpacity
 							onPress={handleSubmit}
+							disabled={isLoading}
 							className={`h-14 rounded-lg flex-row justify-center items-center mt-8 ${isDark ? 'bg-tertiaryBackground-dark' : 'bg-tertiaryBackground-light'}`}
 						>
-							<Text className="text-xl font-medium text-black">Salvar</Text>
+							{isLoading ? (
+								<ActivityIndicator color={isDark ? '#fff' : '#000'} />
+							) : (
+								<Text className="text-xl font-medium text-black">Salvar</Text>
+							)}
 						</TouchableOpacity>
 					</View>
 				</View>
