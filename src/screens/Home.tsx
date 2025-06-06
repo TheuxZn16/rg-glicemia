@@ -7,23 +7,22 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getStoredUser } from '../hooks/setAuth';
 import { useGetSelectedSheet, useCreateSheet } from '../hooks/setSheet';
 import SheetSelectionButtons from '../components/SheetSelectionButtons';
+import {
+	getAverageOfSevenDaysAgo,
+	getGeneralAverage,
+} from '../utils/glicemiaAnalysis';
+import { useEffect, useState } from 'react';
 
-const data = [
-	{ value: 222, label: 'Jan' },
-	{ value: 150, label: 'Feb' },
-	{ value: 170, label: 'Mar' },
-	{ value: 299, label: 'Apr' },
-	{ value: 70, label: 'May' },
-	{ value: 100, label: 'Jun' },
-	{ value: 445, label: 'Jul' },
-];
-
-interface DataPoint {
+interface chartData {
 	value: number;
 	label: string;
 }
 
 function Home() {
+	const [generalAverage, setGeneralAverage] = useState<number | null>(null);
+	const [chartData, setChartData] = useState<chartData[] | undefined>(
+		undefined,
+	);
 	const { width } = Dimensions.get('window');
 	const { isDark } = useTheme();
 	const queryClient = useQueryClient();
@@ -31,8 +30,32 @@ function Home() {
 		queryKey: ['user'],
 		queryFn: getStoredUser,
 	});
+
 	const { data: selectedSheet } = useGetSelectedSheet();
 	const { mutate: createSheet } = useCreateSheet();
+
+	useEffect(() => {
+		if (user && selectedSheet) {
+			const fetchData = async () => {
+				try {
+					const [average, chartData] = await Promise.all([
+						getGeneralAverage(),
+						getAverageOfSevenDaysAgo(),
+					]);
+
+					if (!average) setGeneralAverage(null);
+					else setGeneralAverage(Number(average));
+
+					if (!chartData) setChartData(undefined);
+					else setChartData(chartData);
+				} catch (error) {
+					console.error('Erro ao buscar dados:', error);
+				}
+			};
+
+			fetchData();
+		}
+	}, [user, selectedSheet]);
 
 	if (!user) {
 		return (
@@ -88,7 +111,7 @@ function Home() {
 							width={width - 100}
 							areaChart
 							curved
-							data={data}
+							data={chartData}
 							height={260}
 							spacing={44}
 							disableScroll={true}
@@ -115,10 +138,10 @@ function Home() {
 								radius: 4,
 								pointerLabelWidth: 100,
 								pointerLabelHeight: 120,
-								pointerLabelComponent: (items: DataPoint[]) => {
+								pointerLabelComponent: (items: chartData[]) => {
 									return (
 										<View
-											className={`${isDark ? 'bg-gray-800' : 'bg-gray-200'} h-12 w-14 justify-center items-center rounded-xl opacity-60`}
+											className={`${isDark ? 'bg-gray-800' : 'bg-gray-200'} h-12 w-14 justify-center items-center rounded-xl opacity-60 z-10`}
 										>
 											<Text
 												className={
@@ -151,7 +174,7 @@ function Home() {
 						<Text
 							className={`text-4xl font-bold ${isDark ? 'text-textColor-dark' : 'text-textColor-light'}`}
 						>
-							15 mg/dL
+							{generalAverage} mg/dL
 						</Text>
 					</View>
 				</View>

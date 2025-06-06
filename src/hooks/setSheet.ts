@@ -1,7 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import type { UseMutateFunction } from '@tanstack/react-query';
 
 interface GoogleDriveFile {
 	id: string;
@@ -104,7 +103,6 @@ export function useCreateSheet() {
 									rows: [
 										{
 											values: [
-												// Row 1 values
 												{ userEnteredValue: { stringValue: '' } },
 												{ userEnteredValue: { stringValue: 'Café da Manhã' } },
 												{ userEnteredValue: { stringValue: '' } },
@@ -128,7 +126,6 @@ export function useCreateSheet() {
 										},
 										{
 											values: [
-												// Row 2 values
 												{ userEnteredValue: { stringValue: 'Dia' } },
 												{ userEnteredValue: { stringValue: 'Horario' } },
 												{ userEnteredValue: { stringValue: 'Glicemia' } },
@@ -151,7 +148,7 @@ export function useCreateSheet() {
 											],
 										},
 									],
-									fields: 'userEnteredValue', // Specify that we are updating the cell values
+									fields: 'userEnteredValue',
 								},
 							},
 
@@ -243,11 +240,11 @@ export function useCreateSheet() {
 							{
 								mergeCells: {
 									range: {
-										sheetId: 0, // 0 is the default sheet ID
-										startRowIndex: 0, // Row 1
+										sheetId: 0,
+										startRowIndex: 0,
 										endRowIndex: 1,
-										startColumnIndex: 1, // Column B (0-based)
-										endColumnIndex: 4, // Columns B, C, D (exclusive of 4)
+										startColumnIndex: 1,
+										endColumnIndex: 4,
 									},
 									mergeType: 'MERGE_ALL',
 								},
@@ -258,8 +255,8 @@ export function useCreateSheet() {
 										sheetId: 0,
 										startRowIndex: 0,
 										endRowIndex: 1,
-										startColumnIndex: 4, // Column E (0-based)
-										endColumnIndex: 7, // Columns E, F, G (exclusive of 7)
+										startColumnIndex: 4,
+										endColumnIndex: 7,
 									},
 									mergeType: 'MERGE_ALL',
 								},
@@ -270,8 +267,8 @@ export function useCreateSheet() {
 										sheetId: 0,
 										startRowIndex: 0,
 										endRowIndex: 1,
-										startColumnIndex: 7, // Column H (0-based)
-										endColumnIndex: 10, // Columns H, I, J (exclusive of 10)
+										startColumnIndex: 7,
+										endColumnIndex: 10,
 									},
 									mergeType: 'MERGE_ALL',
 								},
@@ -282,8 +279,8 @@ export function useCreateSheet() {
 										sheetId: 0,
 										startRowIndex: 0,
 										endRowIndex: 1,
-										startColumnIndex: 10, // Column K (0-based)
-										endColumnIndex: 13, // Columns K, L, M (exclusive of 13)
+										startColumnIndex: 10,
+										endColumnIndex: 13,
 									},
 									mergeType: 'MERGE_ALL',
 								},
@@ -294,8 +291,8 @@ export function useCreateSheet() {
 										sheetId: 0,
 										startRowIndex: 0,
 										endRowIndex: 1,
-										startColumnIndex: 13, // Column N (0-based)
-										endColumnIndex: 16, // Columns N, O, P (exclusive of 16)
+										startColumnIndex: 13,
+										endColumnIndex: 16,
 									},
 									mergeType: 'MERGE_ALL',
 								},
@@ -306,8 +303,8 @@ export function useCreateSheet() {
 										sheetId: 0,
 										startRowIndex: 0,
 										endRowIndex: 1,
-										startColumnIndex: 16, // Column Q (0-based)
-										endColumnIndex: 19, // Columns Q, R, S (exclusive of 19)
+										startColumnIndex: 16,
+										endColumnIndex: 19,
 									},
 									mergeType: 'MERGE_ALL',
 								},
@@ -320,7 +317,7 @@ export function useCreateSheet() {
 			if (!formatHeaderResponse.ok) {
 				const errorResponse = await formatHeaderResponse.json();
 				console.error('Failed to format header row:', errorResponse);
-				throw new Error('Failed to format header row'); // Re-throw the error after logging
+				throw new Error('Failed to format header row');
 			}
 
 			return { id: spreadsheetId, name: 'Controle de Glicemia' };
