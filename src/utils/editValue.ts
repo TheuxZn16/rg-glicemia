@@ -70,7 +70,7 @@ export async function checkIfValueExists(
 		);
 		return { range: returnRange, values: currentValues.values[0], row: line };
 	} catch (error) {
-		console.log(error);
+		console.error('Erro ao verificar valor:', error);
 		return null;
 	}
 }
@@ -164,7 +164,7 @@ export async function editValues(
 			]);
 		}
 	} catch (error) {
-		console.log(error);
+		console.error('Erro ao editar valor:', error);
 		throw error;
 	}
 }

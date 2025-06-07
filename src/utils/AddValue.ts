@@ -50,9 +50,6 @@ async function fetchSheetData(
 					}
 				: undefined;
 
-		console.log('Request URL:', url);
-		console.log('Request Body:', JSON.stringify(requestBody, null, 2));
-
 		const response = await fetch(url, {
 			method,
 			headers: {
@@ -83,7 +80,6 @@ async function fetchSheetData(
 		}
 
 		const responseText = await response.text();
-		console.log('Response Text:', responseText);
 
 		try {
 			return JSON.parse(responseText);
@@ -245,8 +241,6 @@ async function dayExist(meal: string) {
 }
 
 async function registerMeal(meal: string, value: string, correction: string) {
-	console.log('Registering meal:', { meal, value, correction });
-
 	if (!value || !correction) {
 		throw new Error('Valor e correção são obrigatórios');
 	}

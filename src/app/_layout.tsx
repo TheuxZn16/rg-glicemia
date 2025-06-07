@@ -2,6 +2,8 @@ import '../utils/ignoreWarnings';
 import '../styles/global.css';
 import 'react-native-gesture-handler';
 
+import { GOOGLE_IOS_CLIENT_ID, GOOGLE_WEB_CLIENT_ID } from '@env';
+
 import Home from '../screens/Home';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
@@ -18,10 +20,8 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 function GoogleSigninConfig() {
 	try {
 		GoogleSignin.configure({
-			iosClientId:
-				'1039543113049-s6tib409170emam9oo6akg9q7akfgl59.apps.googleusercontent.com',
-			webClientId:
-				'1039543113049-ei0ue2mo2dr5c9s6h67re7rgo0ih33or.apps.googleusercontent.com',
+			iosClientId: GOOGLE_IOS_CLIENT_ID,
+			webClientId: GOOGLE_WEB_CLIENT_ID,
 			offlineAccess: true,
 			scopes: [
 				'https://www.googleapis.com/auth/spreadsheets',
@@ -31,7 +31,7 @@ function GoogleSigninConfig() {
 			],
 		});
 	} catch (error) {
-		console.log(error);
+		console.error('Erro ao configurar Google Sign-In:', error);
 	}
 }
 
