@@ -13,6 +13,7 @@ import { useTheme } from '../hooks/useTheme';
 import { useQuery } from '@tanstack/react-query';
 import { getStoredUser } from '../hooks/setAuth';
 import { useGetSelectedSheet } from '../hooks/setSheet';
+import { editValues } from '../utils/editValue';
 import {
 	FormControl,
 	FormControlLabel,
@@ -48,7 +49,9 @@ function EditValueFromSheet() {
 	});
 	const { data: selectedSheet } = useGetSelectedSheet();
 	const [selectedMeal, setSelectedMeal] = useState('');
+	const [newMeal, setNewMeal] = useState('');
 	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [isNewMealModalVisible, setIsNewMealModalVisible] = useState(false);
 	const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
 	const [showDatePicker, setShowDatePicker] = useState(false);
 	const [glucoseValue, setGlucoseValue] = useState('');
@@ -94,6 +97,11 @@ function EditValueFromSheet() {
 		setIsModalVisible(false);
 	};
 
+	const handleNewMealSelect = (value: string) => {
+		setNewMeal(value);
+		setIsNewMealModalVisible(false);
+	};
+
 	const handleDateChange = (event: { type: string }, date?: Date) => {
 		setShowDatePicker(false);
 		if (date) {
@@ -101,36 +109,64 @@ function EditValueFromSheet() {
 		}
 	};
 
-	const handleSubmit = () => {
-		const formData = {
-			refeicao: selectedMeal,
-			data: selectedDate,
-			glicemia: glucoseValue,
-			correcao: correctionValue,
-		};
+	const handleSubmit = async () => {
+		try {
+			if (!selectedDate || !selectedMeal) {
+				Alert.alert(
+					'Erro',
+					'Por favor, selecione uma data e uma refeição para editar',
+				);
+				return;
+			}
 
-		console.log('Dados do formulário:', formData);
+			const formattedDate = formatDate(selectedDate);
+			await editValues(
+				formattedDate,
+				selectedMeal,
+				glucoseValue,
+				newMeal,
+				correctionValue,
+			);
 
-		Alert.alert(
-			'Sucesso!',
-			'Valores registrados com sucesso!',
-			[
-				{
-					text: 'OK',
-					style: 'default',
-					onPress: () => {
-						setSelectedMeal('');
-						setSelectedDate(undefined);
-						setGlucoseValue('');
-						setCorrectionValue('');
+			Alert.alert(
+				'Sucesso!',
+				'Valores registrados com sucesso!',
+				[
+					{
+						text: 'OK',
+						style: 'default',
+						onPress: () => {
+							setSelectedMeal('');
+							setNewMeal('');
+							setSelectedDate(undefined);
+							setGlucoseValue('');
+							setCorrectionValue('');
+						},
 					},
+				],
+				{
+					cancelable: true,
+					userInterfaceStyle: isDark ? 'dark' : 'light',
 				},
-			],
-			{
-				cancelable: true,
-				userInterfaceStyle: isDark ? 'dark' : 'light',
-			},
-		);
+			);
+		} catch (error) {
+			Alert.alert(
+				'Erro',
+				error instanceof Error
+					? error.message
+					: 'Ocorreu um erro ao salvar os valores',
+				[
+					{
+						text: 'OK',
+						style: 'default',
+					},
+				],
+				{
+					cancelable: true,
+					userInterfaceStyle: isDark ? 'dark' : 'light',
+				},
+			);
+		}
 	};
 
 	return (
@@ -254,19 +290,19 @@ function EditValueFromSheet() {
 									<FormControlLabelText
 										className={`text-xl font-semibold ${isDark ? 'text-textColor-dark' : 'text-textColor-light'}`}
 									>
-										Selecione uma refeição:
+										Selecione uma nova refeição:
 									</FormControlLabelText>
 								</FormControlLabel>
 								<Pressable
-									onPress={() => setIsModalVisible(true)}
+									onPress={() => setIsNewMealModalVisible(true)}
 									className={`h-14 rounded-lg border-0 flex-row justify-between items-center px-4 ${isDark ? 'bg-tertiaryBackground-dark' : 'bg-tertiaryBackground-light'}`}
 								>
 									<Text
-										className={`text-black text-lg ${!selectedMeal ? 'opacity-50' : ''}`}
+										className={`text-black text-lg ${!newMeal ? 'opacity-50' : ''}`}
 									>
-										{selectedMeal
-											? capitalizeFirstLetter(selectedMeal)
-											: 'Selecione uma refeição'}
+										{newMeal
+											? capitalizeFirstLetter(newMeal)
+											: 'Selecione uma nova refeição'}
 									</Text>
 									<View className="w-7 h-7 justify-center items-center">
 										<Icon as={ChevronDownIcon} />
@@ -274,14 +310,14 @@ function EditValueFromSheet() {
 								</Pressable>
 
 								<Modal
-									visible={isModalVisible}
+									visible={isNewMealModalVisible}
 									transparent
 									animationType="slide"
-									onRequestClose={() => setIsModalVisible(false)}
+									onRequestClose={() => setIsNewMealModalVisible(false)}
 								>
 									<Pressable
 										className="flex-1 justify-end bg-black/50"
-										onPress={() => setIsModalVisible(false)}
+										onPress={() => setIsNewMealModalVisible(false)}
 									>
 										<View
 											className={`${isDark ? 'bg-secundaryBackground-dark' : 'bg-secundaryBackground-light'} rounded-t-3xl p-4`}
@@ -290,8 +326,8 @@ function EditValueFromSheet() {
 											{meals.map((meal) => (
 												<TouchableOpacity
 													key={meal.value}
-													onPress={() => handleSelect(meal.value)}
-													className={`py-4 px-4 ${selectedMeal === meal.value ? (isDark ? 'bg-tertiaryBackground-dark' : 'bg-tertiaryBackground-light') : ''}`}
+													onPress={() => handleNewMealSelect(meal.value)}
+													className={`py-4 px-4 ${newMeal === meal.value ? (isDark ? 'bg-tertiaryBackground-dark' : 'bg-tertiaryBackground-light') : ''}`}
 												>
 													<Text
 														className={`text-xl ${isDark ? 'text-textColor-dark' : 'text-textColor-light'}`}

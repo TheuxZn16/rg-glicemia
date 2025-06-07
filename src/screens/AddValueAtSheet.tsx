@@ -28,7 +28,7 @@ import {
 	registerDinner,
 	registerSupper,
 	registerOther,
-} from '../utils/AddValue';
+} from '../utils/addValue';
 
 const meals = [
 	{ label: 'Café da manhã', value: 'Café da manhã' },

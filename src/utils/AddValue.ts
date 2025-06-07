@@ -46,9 +46,12 @@ async function fetchSheetData(
 				? {
 						range: range,
 						majorDimension: 'ROWS',
-						values: body?.values,
+						values: body?.values || [],
 					}
 				: undefined;
+
+		console.log('Request URL:', url);
+		console.log('Request Body:', JSON.stringify(requestBody, null, 2));
 
 		const response = await fetch(url, {
 			method,
@@ -80,6 +83,8 @@ async function fetchSheetData(
 		}
 
 		const responseText = await response.text();
+		console.log('Response Text:', responseText);
+
 		try {
 			return JSON.parse(responseText);
 		} catch (parseError) {
@@ -87,6 +92,7 @@ async function fetchSheetData(
 			throw new Error('Resposta inválida da API');
 		}
 	} catch (error) {
+		console.error('Erro detalhado:', error);
 		if (error instanceof Error) {
 			throw new Error(`Erro ao ler planilha: ${error.message}`);
 		}
@@ -239,6 +245,12 @@ async function dayExist(meal: string) {
 }
 
 async function registerMeal(meal: string, value: string, correction: string) {
+	console.log('Registering meal:', { meal, value, correction });
+
+	if (!value || !correction) {
+		throw new Error('Valor e correção são obrigatórios');
+	}
+
 	const { accessToken } = await getAccessToken();
 	const selectedSheet = await AsyncStorage.getItem('@spreedshet');
 	if (!selectedSheet) throw new Error('Planilha não selecionada');
@@ -268,7 +280,14 @@ async function registerMeal(meal: string, value: string, correction: string) {
 		case 'Outro':
 			range = 'Q:S';
 			break;
+		default:
+			throw new Error(`Refeição inválida: ${meal}`);
 	}
+
+	console.log('Sending data to sheet:', {
+		range: `Registro Diabetes!${range}${row}`,
+		values: [await getTime(), value, correction],
+	});
 
 	await fetchSheetData(
 		`Registro Diabetes!${range}${row}`,

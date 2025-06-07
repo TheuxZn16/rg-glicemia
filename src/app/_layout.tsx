@@ -1,3 +1,4 @@
+import '../utils/ignoreWarnings';
 import '../styles/global.css';
 import 'react-native-gesture-handler';
 

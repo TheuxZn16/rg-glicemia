@@ -13,7 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getStoredUser } from '../hooks/setAuth';
 import { useGetSelectedSheet } from '../hooks/setSheet';
 import { useState } from 'react';
-import { downloadCompleteSheet } from '../utils/DownloadSheet';
+import { downloadCompleteSheet } from '../utils/downloadSheet';
 import React from 'react';
 
 function DownloadSheet() {

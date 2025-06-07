@@ -7,6 +7,10 @@ interface SheetData {
 	name: string;
 }
 
+interface SheetResponse {
+	values: string[][];
+}
+
 export function useReadSheetData(range: string) {
 	const queryClient = useQueryClient();
 	return useQuery({
@@ -48,40 +52,42 @@ export function useReadSheetData(range: string) {
 	});
 }
 
-async function fetchSheetData(
+export async function fetchSheetData(
 	range: string,
-	spreadsheetId: string,
+	sheetId: string,
 	accessToken: string,
-) {
+	method: 'GET' | 'POST' | 'PUT' = 'GET',
+	body?: { values: string[][] },
+): Promise<SheetResponse> {
 	try {
-		const response = await fetch(
-			`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}`,
-			{
-				method: 'GET',
-				headers: {
-					Authorization: `Bearer ${accessToken}`,
-					'Content-Type': 'application/json',
-				},
+		const baseUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}`;
+		const url =
+			method === 'GET' ? baseUrl : `${baseUrl}?valueInputOption=USER_ENTERED`;
+
+		const response = await fetch(url, {
+			method,
+			headers: {
+				Authorization: `Bearer ${accessToken}`,
+				'Content-Type': 'application/json',
 			},
-		);
+			body: method !== 'GET' ? JSON.stringify(body) : undefined,
+		});
 
 		if (!response.ok) {
-			const errorData = await response.json();
-			throw new Error(errorData.error?.message || 'Failed to fetch sheet data');
+			throw new Error(`Erro ao ler planilha: ${response.statusText}`);
 		}
 
-		return response.json();
+		const data = await response.json();
+		return data;
 	} catch (error) {
-		if (error instanceof Error) {
-			throw new Error(`Erro ao ler planilha: ${error.message}`);
-		}
-		throw new Error('Erro desconhecido ao ler planilha');
+		console.error('Erro ao buscar dados da planilha:', error);
+		throw error;
 	}
 }
 
 let tokenPromise: Promise<{ accessToken: string }> | null = null;
 
-async function getAccessToken() {
+export async function getAccessToken() {
 	if (!tokenPromise) {
 		tokenPromise = GoogleSignin.getTokens();
 	}
