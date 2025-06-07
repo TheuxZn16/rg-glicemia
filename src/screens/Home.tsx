@@ -164,7 +164,11 @@ function Home() {
 								}}
 							/>
 						) : (
-							<Text>Não há nada a ser exibido</Text>
+							<Text
+								className={`text-xl text-center ${isDark ? 'text-textColor-dark' : 'text-textColor-light'}`}
+							>
+								Não há nada a ser exibido
+							</Text>
 						)}
 					</View>
 					<View
@@ -178,7 +182,7 @@ function Home() {
 						<Text
 							className={`text-4xl font-bold ${isDark ? 'text-textColor-dark' : 'text-textColor-light'}`}
 						>
-							{generalAverage} mg/dL
+							{generalAverage ? `${generalAverage} mg/dL` : 'Carregando...'}
 						</Text>
 					</View>
 				</View>
